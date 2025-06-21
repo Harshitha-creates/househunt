@@ -2,8 +2,11 @@ import express from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import moment from 'moment';
+import authRouter from './Routes/authRoutes.js';
 dotenv.config();
 const app = express();
+
+app.use(express.json());
 
 mongoose.connect(process.env.MONGO_URL)
 .then(()=>{
@@ -15,3 +18,5 @@ mongoose.connect(process.env.MONGO_URL)
 .catch((err)=>{
     console.log(err);
 });
+
+app.use('/auth', authRouter);

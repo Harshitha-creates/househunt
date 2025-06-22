@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const propertySchema = new Schema({
-   userID: {
+   ownerID: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',  // Owner
     required: true
@@ -13,7 +13,7 @@ const propertySchema = new Schema({
   isAvailable: { type: Boolean, default: true },
   address: { type: String, required: true },
   contact: { type: String, required: true },        // Owner contact
-  amount: { type: Number, required: true },
+  amount: { type: Number, required: true, min: 0 },
   images: [String],                                 // URLs or paths
   additionalInfo: { type: String }
 }, { timestamps: true });

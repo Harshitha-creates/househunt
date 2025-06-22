@@ -1,6 +1,6 @@
 import express from 'express';
-import checkRole from '../middleware/checkRole';
-import { getAllProperties, getPropertyDetails, bookProperty, getMyBookings } from '../controllers/generalController';
+
+import { getAllProperties, getPropertyDetails, bookProperty, getMyBookings } from '../Controllers/generalControllers.js';
 
 const generalRouter = express.Router();
 

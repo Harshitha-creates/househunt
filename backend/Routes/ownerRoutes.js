@@ -1,6 +1,6 @@
 import express from 'express';
-import checkRole from '../middleware/checkRole';
-import { addProperty, getOwnerProperties, deleteProperty, updateProperty, getOwnerBookings } from '../controllers/ownerController';
+import checkRole from '../middleware/checkRole.js';
+import { addProperty, getOwnerProperties, deleteProperty, updateProperty, getOwnerBookings } from '../Controllers/ownerControllers.js';
  
 const ownerRouter = express.Router();
 

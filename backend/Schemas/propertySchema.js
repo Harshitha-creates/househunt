@@ -18,3 +18,5 @@ const propertySchema = new Schema({
   additionalInfo: { type: String }
 }, { timestamps: true });
 
+const Property = mongoose.model('Property', propertySchema);
+export default Property;

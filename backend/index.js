@@ -3,6 +3,9 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import moment from 'moment';
 import authRouter from './Routes/authRoutes.js';
+import generalRouter from './Routes/generalRoutes.js';
+import ownerRouter from './Routes/ownerRoutes.js';
+import checkAuth from './middleware/authMiddleware.js'
 dotenv.config();
 const app = express();
 
@@ -20,3 +23,8 @@ mongoose.connect(process.env.MONGO_URL)
 });
 
 app.use('/auth', authRouter);
+
+app.use(checkAuth)
+
+app.use('/general', generalRouter);
+app.use('/owner',ownerRouter)

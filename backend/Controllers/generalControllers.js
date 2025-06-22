@@ -1,10 +1,13 @@
-import Property from '../Schemas/propertySchema';
-import Booking from '../Schemas/bookingSchema';
-import User from '../Schemas/authSchemas';
+import Property from '../Schemas/propertySchema.js';
+import Booking from '../Schemas/bookingSchema.js';
+import User from '../Schemas/authSchemas.js';
 
 const getAllProperties = async (req, res) => {
     try{
         const properties = await Property.find();
+        if(properties.length === 0){
+            res.status(404).send("No properties found");
+        }
         res.status(200).json({message: 'Properties fetched successfully', properties});
 
     }catch(error){
@@ -64,3 +67,5 @@ const getMyBookings = async (req,res)=>{
         res.status(500).json({message: 'Error fetching bookings', error});
     }
 }
+
+export {getAllProperties,getMyBookings,bookProperty,getPropertyDetails}

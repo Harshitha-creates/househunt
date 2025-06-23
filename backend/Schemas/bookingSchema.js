@@ -20,7 +20,7 @@ const bookingSchema = new mongoose.Schema({
   },
   username: { type: String, required: true }, // Tenant name snapshot
 
-  // Optional: add booking status, dates
+
   status: { type: String, default: "pending", enum: ["pending", "approved", "rejected"] },
   createdAt: { type: Date, default: Date.now }
 });

@@ -39,7 +39,8 @@ const bookProperty = async (req, res) => {
         if (!property) {
             return res.status(404).json({ message: 'Property not found' });
         }
-        const ownerId = property.ownerId;
+        const ownerId = property.ownerID;
+        console.log(ownerId);
         const newBooking = new Booking({
             propertyId,
             userId,
@@ -47,6 +48,7 @@ const bookProperty = async (req, res) => {
             username: user.username
         });
         await newBooking.save();
+        console.log('Booking created successfully:', newBooking);
         res.status(200).json({message: 'Booking created successfully', booking: newBooking});
     }catch(error){
         res.status(500).json({message: 'Error booking property', error});

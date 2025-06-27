@@ -6,6 +6,7 @@ import Search from "./pages/Search";
 import UserBookings from "./pages/UserBookings";
 import Properties from "./pages/Properties";
 import OwnerBookings from "./pages/OwnerBookings";
+import Home from "./pages/Home";
 import "./output.css";
 import Navbar from "./components/Navbar";
 
@@ -23,6 +24,7 @@ export default function App() {
       <Router>
         <Navbar />
         <Routes>
+          <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route

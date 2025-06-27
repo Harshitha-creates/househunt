@@ -45,39 +45,78 @@ export default function OwnerBookings() {
   if (loading) return <div className="p-4">Loading...</div>;
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-semibold mb-4">Bookings for Your Properties</h1>
-      {message && <p className="mb-2 text-green-600">{message}</p>}
-      {bookings.length === 0 ? (
-        <p>No bookings found.</p>
-      ) : (
-        <div className="space-y-4">
-          {bookings.map((booking) => (
-            <div key={booking._id} className="border rounded p-4 shadow bg-white">
-              <p><strong>Tenant:</strong> {booking.username}</p>
-              <p><strong>Property:</strong> {booking.propertyId?.propType} ({booking.propertyId?.address})</p>
-              <p><strong>Status:</strong> {booking.status}</p>
-              <p><strong>Booked At:</strong> {new Date(booking.createdAt).toLocaleString()}</p>
-              {booking.status === "pending" && (
-                <>
-                  <button
-                    onClick={() => handleApprove(booking._id)}
-                    className="mt-2 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 mr-2"
-                  >
-                    Approve
-                  </button>
-                  <button
-                    onClick={() => handleReject(booking._id)}
-                    className="mt-2 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-                  >
-                    Reject
-                  </button>
-                </>
-              )}
-            </div>
-          ))}
-        </div>
-      )}
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white py-10">
+      <div className="max-w-3xl mx-auto bg-white rounded-xl shadow-lg p-8">
+        <h1 className="text-3xl font-bold mb-8 text-blue-800 flex items-center gap-2">
+          <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9 17v-2a2 2 0 012-2h2a2 2 0 012 2v2m-6 4h6a2 2 0 002-2v-6a2 2 0 00-2-2h-2a2 2 0 00-2 2v6a2 2 0 002 2z" /></svg>
+          Bookings for Your Properties
+        </h1>
+        {message && (
+          <div className="mb-4 px-4 py-2 rounded bg-green-100 text-green-800 border border-green-200">
+            {message}
+          </div>
+        )}
+        {bookings.length === 0 ? (
+          <div className="text-center text-gray-500 py-12">
+            <svg className="mx-auto w-16 h-16 text-gray-300 mb-4" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3" /></svg>
+            <p className="text-lg">No bookings found.</p>
+          </div>
+        ) : (
+          <div className="space-y-6">
+            {bookings.map((booking) => (
+              <div
+                key={booking._id}
+                className="border border-blue-100 rounded-lg p-6 shadow-sm bg-gradient-to-br from-white to-blue-50 hover:shadow-lg transition-shadow"
+              >
+                <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-2">
+                  <div>
+                    <p className="font-semibold text-blue-700">
+                      Tenant: <span className="text-gray-800">{booking.username}</span>
+                    </p>
+                    <p className="text-gray-700">
+                      Property: <span className="font-medium">{booking.propertyId?.propType}</span>
+                      <span className="text-gray-500"> ({booking.propertyId?.address})</span>
+                    </p>
+                    <p>
+                      Status:{" "}
+                      <span
+                        className={
+                          booking.status === "approved"
+                            ? "text-green-600 font-semibold"
+                            : booking.status === "rejected"
+                            ? "text-red-500 font-semibold"
+                            : "text-yellow-600 font-semibold"
+                        }
+                      >
+                        {booking.status.charAt(0).toUpperCase() + booking.status.slice(1)}
+                      </span>
+                    </p>
+                    <p className="text-gray-500 text-sm">
+                      Booked At: {new Date(booking.createdAt).toLocaleString()}
+                    </p>
+                  </div>
+                  {booking.status === "pending" && (
+                    <div className="flex gap-2 mt-4 md:mt-0">
+                      <button
+                        onClick={() => handleApprove(booking._id)}
+                        className="bg-green-500 hover:bg-green-600 text-white px-5 py-2 rounded-lg font-semibold shadow"
+                      >
+                        Approve
+                      </button>
+                      <button
+                        onClick={() => handleReject(booking._id)}
+                        className="bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-lg font-semibold shadow"
+                      >
+                        Reject
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
